@@ -1,6 +1,6 @@
 login_module.controller('LoginController',
-                       ['$scope', '$window', '$location', 'toastr', 'AppUtil',
-                        LoginController]);
+    ['$scope', '$window', '$location', 'toastr', 'AppUtil',
+        LoginController]);
 
 function LoginController($scope, $window, $location, toastr, AppUtil) {
     if ($location.$$url) {

@@ -4,7 +4,7 @@ appService.service('PermissionService', ['$resource', '$q', function ($resource,
             method: 'POST',
             url: '/apps/:appId/initPermission',
             headers: {
-                 'Content-Type': 'text/plain;charset=UTF-8'
+                'Content-Type': 'text/plain;charset=UTF-8'
             }
         },
         has_app_permission: {
@@ -19,7 +19,7 @@ appService.service('PermissionService', ['$resource', '$q', function ($resource,
             method: 'GET',
             url: '/apps/:appId/envs/:env/namespaces/:namespaceName/permissions/:permissionType'
         },
-        has_root_permission:{
+        has_root_permission: {
             method: 'GET',
             url: '/permissions/root'
         },
@@ -35,14 +35,14 @@ appService.service('PermissionService', ['$resource', '$q', function ($resource,
             method: 'POST',
             url: '/apps/:appId/namespaces/:namespaceName/roles/:roleType',
             headers: {
-                 'Content-Type': 'text/plain;charset=UTF-8'
+                'Content-Type': 'text/plain;charset=UTF-8'
             }
         },
         assign_namespace_env_role_to_user: {
             method: 'POST',
             url: '/apps/:appId/envs/:env/namespaces/:namespaceName/roles/:roleType',
             headers: {
-                 'Content-Type': 'text/plain;charset=UTF-8'
+                'Content-Type': 'text/plain;charset=UTF-8'
             }
         },
         remove_namespace_role_from_user: {
@@ -55,13 +55,13 @@ appService.service('PermissionService', ['$resource', '$q', function ($resource,
         },
         get_app_role_users: {
             method: 'GET',
-            url: '/apps/:appId/role_users'    
+            url: '/apps/:appId/role_users'
         },
         assign_app_role_to_user: {
             method: 'POST',
             url: '/apps/:appId/roles/:roleType',
             headers: {
-                 'Content-Type': 'text/plain;charset=UTF-8'
+                'Content-Type': 'text/plain;charset=UTF-8'
             }
         },
         remove_app_role_from_user: {
@@ -86,12 +86,12 @@ appService.service('PermissionService', ['$resource', '$q', function ($resource,
     function hasAppPermission(appId, permissionType) {
         var d = $q.defer();
         permission_resource.has_app_permission({
-                                                   appId: appId,
-                                                   permissionType: permissionType
-                                               },
-                                               function (result) {
-                                                   d.resolve(result);
-                                               }, function (result) {
+                appId: appId,
+                permissionType: permissionType
+            },
+            function (result) {
+                d.resolve(result);
+            }, function (result) {
                 d.reject(result);
             });
         return d.promise;
@@ -100,13 +100,13 @@ appService.service('PermissionService', ['$resource', '$q', function ($resource,
     function hasNamespacePermission(appId, namespaceName, permissionType) {
         var d = $q.defer();
         permission_resource.has_namespace_permission({
-                                                         appId: appId,
-                                                         namespaceName: namespaceName,
-                                                         permissionType: permissionType
-                                                     },
-                                                     function (result) {
-                                                         d.resolve(result);
-                                                     }, function (result) {
+                appId: appId,
+                namespaceName: namespaceName,
+                permissionType: permissionType
+            },
+            function (result) {
+                d.resolve(result);
+            }, function (result) {
                 d.reject(result);
             });
         return d.promise;
@@ -131,13 +131,13 @@ appService.service('PermissionService', ['$resource', '$q', function ($resource,
     function assignNamespaceRoleToUser(appId, namespaceName, roleType, user) {
         var d = $q.defer();
         permission_resource.assign_namespace_role_to_user({
-                                                              appId: appId,
-                                                              namespaceName: namespaceName,
-                                                              roleType: roleType
-                                                          }, user,
-                                                          function (result) {
-                                                              d.resolve(result);
-                                                          }, function (result) {
+                appId: appId,
+                namespaceName: namespaceName,
+                roleType: roleType
+            }, user,
+            function (result) {
+                d.resolve(result);
+            }, function (result) {
                 d.reject(result);
             });
         return d.promise;
@@ -162,14 +162,14 @@ appService.service('PermissionService', ['$resource', '$q', function ($resource,
     function removeNamespaceRoleFromUser(appId, namespaceName, roleType, user) {
         var d = $q.defer();
         permission_resource.remove_namespace_role_from_user({
-                                                                appId: appId,
-                                                                namespaceName: namespaceName,
-                                                                roleType: roleType,
-                                                                user: user
-                                                            },
-                                                            function (result) {
-                                                                d.resolve(result);
-                                                            }, function (result) {
+                appId: appId,
+                namespaceName: namespaceName,
+                roleType: roleType,
+                user: user
+            },
+            function (result) {
+                d.resolve(result);
+            }, function (result) {
                 d.reject(result);
             });
         return d.promise;
@@ -219,14 +219,14 @@ appService.service('PermissionService', ['$resource', '$q', function ($resource,
         },
         has_root_permission: function () {
             var d = $q.defer();
-            permission_resource.has_root_permission({ },
-                                                         function (result) {
-                                                             d.resolve(result);
-                                                         }, function (result) {
+            permission_resource.has_root_permission({},
+                function (result) {
+                    d.resolve(result);
+                }, function (result) {
                     d.reject(result);
                 });
-            return d.promise;    
-            
+            return d.promise;
+
         },
         assign_modify_namespace_role: function (appId, namespaceName, user) {
             return assignNamespaceRoleToUser(appId, namespaceName, 'ModifyNamespace', user);
@@ -255,12 +255,12 @@ appService.service('PermissionService', ['$resource', '$q', function ($resource,
         get_namespace_role_users: function (appId, namespaceName) {
             var d = $q.defer();
             permission_resource.get_namespace_role_users({
-                                                              appId: appId,
-                                                              namespaceName: namespaceName,
-                                                          },
-                                                         function (result) {
-                                                              d.resolve(result);
-                                                          }, function (result) {
+                    appId: appId,
+                    namespaceName: namespaceName,
+                },
+                function (result) {
+                    d.resolve(result);
+                }, function (result) {
                     d.reject(result);
                 });
             return d.promise;
@@ -282,24 +282,24 @@ appService.service('PermissionService', ['$resource', '$q', function ($resource,
         get_app_role_users: function (appId) {
             var d = $q.defer();
             permission_resource.get_app_role_users({
-                                                        appId: appId
-                                                    },
-                                                   function (result) {
-                                                        d.resolve(result);
-                                                    }, function (result) {
+                    appId: appId
+                },
+                function (result) {
+                    d.resolve(result);
+                }, function (result) {
                     d.reject(result);
                 });
-            return d.promise;    
+            return d.promise;
         },
         assign_master_role: function (appId, user) {
             var d = $q.defer();
             permission_resource.assign_app_role_to_user({
-                                                            appId: appId,
-                                                            roleType: 'Master'
-                                                        }, user,
-                                                        function (result) {
-                                                            d.resolve(result);
-                                                        }, function (result) {
+                    appId: appId,
+                    roleType: 'Master'
+                }, user,
+                function (result) {
+                    d.resolve(result);
+                }, function (result) {
                     d.reject(result);
                 });
             return d.promise;
@@ -307,13 +307,13 @@ appService.service('PermissionService', ['$resource', '$q', function ($resource,
         remove_master_role: function (appId, user) {
             var d = $q.defer();
             permission_resource.remove_app_role_from_user({
-                                                              appId: appId,
-                                                              roleType: 'Master',
-                                                              user: user
-                                                          },
-                                                          function (result) {
-                                                              d.resolve(result);
-                                                          }, function (result) {
+                    appId: appId,
+                    roleType: 'Master',
+                    user: user
+                },
+                function (result) {
+                    d.resolve(result);
+                }, function (result) {
                     d.reject(result);
                 });
             return d.promise;

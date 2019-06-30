@@ -1,6 +1,6 @@
 index_module.controller('IndexController', ['$scope', '$window', 'toastr', 'AppUtil', 'AppService',
-                                            'UserService', 'FavoriteService',
-                                            IndexController]);
+    'UserService', 'FavoriteService',
+    IndexController]);
 
 function IndexController($scope, $window, toastr, AppUtil, AppService, UserService, FavoriteService) {
 
@@ -57,7 +57,7 @@ function IndexController($scope, $window, toastr, AppUtil, AppService, UserServi
                 $scope.favoritesPage += 1;
                 $scope.hasMoreFavorites = result.length == size;
 
-                if ($scope.favoritesPage == 1){
+                if ($scope.favoritesPage == 1) {
                     $("#app-list").removeClass("hidden");
                 }
 
@@ -79,7 +79,7 @@ function IndexController($scope, $window, toastr, AppUtil, AppService, UserServi
                         });
                         result.forEach(function (favorite) {
                             var app = appIdMapApp[favorite.appId];
-                            if (!app){
+                            if (!app) {
                                 return;
                             }
                             app.favoriteId = favorite.id;
@@ -109,7 +109,7 @@ function IndexController($scope, $window, toastr, AppUtil, AppService, UserServi
 
                     userVisitedApps.forEach(function (appId) {
                         var app = appIdMapApp[appId];
-                        if (app){
+                        if (app) {
                             $scope.visitedApps.push(app);
                         }
                     });

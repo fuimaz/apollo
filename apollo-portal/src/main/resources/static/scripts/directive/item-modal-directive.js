@@ -31,7 +31,7 @@ function itemModalDirective(toastr, $sce, AppUtil, EventManager, ConfigService) 
             });
 
             $("#valueEditor").textareafullscreen();
-            
+
             function doItem() {
 
                 if (!scope.item.value) {
@@ -56,18 +56,18 @@ function itemModalDirective(toastr, $sce, AppUtil, EventManager, ConfigService) 
 
                     if (scope.toOperationNamespace.isBranch) {
                         ConfigService.create_item(scope.appId,
-                                                  scope.env,
-                                                  scope.toOperationNamespace.baseInfo.clusterName,
-                                                  scope.toOperationNamespace.baseInfo.namespaceName,
-                                                  scope.item).then(
+                            scope.env,
+                            scope.toOperationNamespace.baseInfo.clusterName,
+                            scope.toOperationNamespace.baseInfo.namespaceName,
+                            scope.item).then(
                             function (result) {
                                 toastr.success("添加成功,如需生效请发布");
                                 scope.item.addItemBtnDisabled = false;
                                 AppUtil.hideModal('#itemModal');
                                 EventManager.emit(EventManager.EventType.REFRESH_NAMESPACE,
-                                                  {
-                                                      namespace: scope.toOperationNamespace
-                                                  });
+                                    {
+                                        namespace: scope.toOperationNamespace
+                                    });
 
                             }, function (result) {
                                 toastr.error(AppUtil.errorMsg(result), "添加失败");
@@ -82,10 +82,10 @@ function itemModalDirective(toastr, $sce, AppUtil, EventManager, ConfigService) 
 
                         selectedClusters.forEach(function (cluster) {
                             ConfigService.create_item(scope.appId,
-                                                      cluster.env,
-                                                      cluster.name,
-                                                      scope.toOperationNamespace.baseInfo.namespaceName,
-                                                      scope.item).then(
+                                cluster.env,
+                                cluster.name,
+                                scope.toOperationNamespace.baseInfo.namespaceName,
+                                scope.item).then(
                                 function (result) {
                                     scope.item.addItemBtnDisabled = false;
                                     AppUtil.hideModal('#itemModal');
@@ -94,9 +94,9 @@ function itemModalDirective(toastr, $sce, AppUtil, EventManager, ConfigService) 
                                         cluster.name == scope.cluster) {
 
                                         EventManager.emit(EventManager.EventType.REFRESH_NAMESPACE,
-                                                          {
-                                                              namespace: scope.toOperationNamespace
-                                                          });
+                                            {
+                                                namespace: scope.toOperationNamespace
+                                            });
                                     }
                                 }, function (result) {
                                     toastr.error(AppUtil.errorMsg(result), "添加失败");
@@ -112,15 +112,15 @@ function itemModalDirective(toastr, $sce, AppUtil, EventManager, ConfigService) 
                     }
 
                     ConfigService.update_item(scope.appId,
-                                              scope.env,
-                                              scope.toOperationNamespace.baseInfo.clusterName,
-                                              scope.toOperationNamespace.baseInfo.namespaceName,
-                                              scope.item).then(
+                        scope.env,
+                        scope.toOperationNamespace.baseInfo.clusterName,
+                        scope.toOperationNamespace.baseInfo.namespaceName,
+                        scope.item).then(
                         function (result) {
                             EventManager.emit(EventManager.EventType.REFRESH_NAMESPACE,
-                                              {
-                                                  namespace: scope.toOperationNamespace
-                                              });
+                                {
+                                    namespace: scope.toOperationNamespace
+                                });
 
                             AppUtil.hideModal('#itemModal');
 

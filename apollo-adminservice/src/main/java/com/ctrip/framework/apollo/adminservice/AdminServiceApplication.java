@@ -2,7 +2,6 @@ package com.ctrip.framework.apollo.adminservice;
 
 import com.ctrip.framework.apollo.biz.ApolloBizConfig;
 import com.ctrip.framework.apollo.common.ApolloCommonConfig;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
@@ -11,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
 @EnableAspectJAutoProxy
 @EnableEurekaClient
 @Configuration
@@ -18,10 +18,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableAutoConfiguration
 @EnableTransactionManagement
 @ComponentScan(basePackageClasses = {ApolloCommonConfig.class,
-    ApolloBizConfig.class,
-    AdminServiceApplication.class})
+        ApolloBizConfig.class,
+        AdminServiceApplication.class})
 public class AdminServiceApplication {
-  public static void main(String[] args) {
-    SpringApplication.run(AdminServiceApplication.class, args);
-  }
+    public static void main(String[] args) {
+        SpringApplication.run(AdminServiceApplication.class, args);
+    }
 }

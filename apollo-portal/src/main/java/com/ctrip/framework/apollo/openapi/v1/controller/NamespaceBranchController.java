@@ -21,15 +21,7 @@ import com.ctrip.framework.apollo.portal.service.ReleaseService;
 import com.ctrip.framework.apollo.portal.spi.UserService;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -43,10 +35,10 @@ public class NamespaceBranchController {
     private final UserService userService;
 
     public NamespaceBranchController(
-        final ConsumerPermissionValidator consumerPermissionValidator,
-        final ReleaseService releaseService,
-        final NamespaceBranchService namespaceBranchService,
-        final UserService userService) {
+            final ConsumerPermissionValidator consumerPermissionValidator,
+            final ReleaseService releaseService,
+            final NamespaceBranchService namespaceBranchService,
+            final UserService userService) {
         this.consumerPermissionValidator = consumerPermissionValidator;
         this.releaseService = releaseService;
         this.namespaceBranchService = namespaceBranchService;
@@ -73,7 +65,7 @@ public class NamespaceBranchController {
                                          @PathVariable String namespaceName,
                                          @RequestParam("operator") String operator,
                                          HttpServletRequest request) {
-        RequestPrecondition.checkArguments(!StringUtils.isContainEmpty(operator),"operator can not be empty");
+        RequestPrecondition.checkArguments(!StringUtils.isContainEmpty(operator), "operator can not be empty");
 
         if (userService.findByUserId(operator) == null) {
             throw new BadRequestException("operator " + operator + " not exists");
@@ -95,21 +87,21 @@ public class NamespaceBranchController {
                              @PathVariable String branchName,
                              @RequestParam("operator") String operator,
                              HttpServletRequest request) {
-        RequestPrecondition.checkArguments(!StringUtils.isContainEmpty(operator),"operator can not be empty");
+        RequestPrecondition.checkArguments(!StringUtils.isContainEmpty(operator), "operator can not be empty");
 
         if (userService.findByUserId(operator) == null) {
             throw new BadRequestException("operator " + operator + " not exists");
         }
 
         boolean canDelete = consumerPermissionValidator.hasReleaseNamespacePermission(request, appId, namespaceName, env) ||
-            (consumerPermissionValidator.hasModifyNamespacePermission(request, appId, namespaceName, env) &&
-                releaseService.loadLatestRelease(appId, Env.valueOf(env), branchName, namespaceName) == null);
+                (consumerPermissionValidator.hasModifyNamespacePermission(request, appId, namespaceName, env) &&
+                        releaseService.loadLatestRelease(appId, Env.valueOf(env), branchName, namespaceName) == null);
 
         if (!canDelete) {
             throw new AccessDeniedException("Forbidden operation. "
-                + "Caused by: 1.you don't have release permission "
-                + "or 2. you don't have modification permission "
-                + "or 3. you have modification permission but branch has been released");
+                    + "Caused by: 1.you don't have release permission "
+                    + "or 2. you don't have modification permission "
+                    + "or 3. you have modification permission but branch has been released");
         }
         namespaceBranchService.deleteBranch(appId, Env.valueOf(env.toUpperCase()), clusterName, namespaceName, branchName, operator);
 
@@ -134,7 +126,7 @@ public class NamespaceBranchController {
                                   @PathVariable String branchName, @RequestBody OpenGrayReleaseRuleDTO rules,
                                   @RequestParam("operator") String operator,
                                   HttpServletRequest request) {
-        RequestPrecondition.checkArguments(!StringUtils.isContainEmpty(operator),"operator can not be empty");
+        RequestPrecondition.checkArguments(!StringUtils.isContainEmpty(operator), "operator can not be empty");
 
         if (userService.findByUserId(operator) == null) {
             throw new BadRequestException("operator " + operator + " not exists");

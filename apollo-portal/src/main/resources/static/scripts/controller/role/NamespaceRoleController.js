@@ -22,7 +22,7 @@ role_module.controller('NamespaceRoleController',
             PermissionService.init_app_namespace_permission($scope.pageContext.appId, $scope.pageContext.namespaceName)
                 .then(function (result) {
 
-                }, function(result) {
+                }, function (result) {
                     toastr.warn(AppUtil.errorMsg(result), "初始化授权出错");
                 });
 
@@ -34,7 +34,7 @@ role_module.controller('NamespaceRoleController',
                 });
 
             EnvService.find_all_envs()
-                .then(function (result){
+                .then(function (result) {
                     $scope.envs = result;
                     $scope.envRolesAssignedUsers = {};
                     for (var iLoop = 0; iLoop < result.length; iLoop++) {
@@ -42,7 +42,7 @@ role_module.controller('NamespaceRoleController',
                         PermissionService.get_namespace_env_role_users($scope.pageContext.appId, env, $scope.pageContext.namespaceName)
                             .then(function (result) {
                                 $scope.envRolesAssignedUsers[result.env] = result;
-                            }, function(result) {
+                            }, function (result) {
                                 toastr.error(AppUtil.errorMsg(result), "加载" + env + "授权用户出错");
                             });
                     }
@@ -183,7 +183,6 @@ role_module.controller('NamespaceRoleController',
                 }
                 list.splice(index, 1);
             }
-
 
 
         }]);

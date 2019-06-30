@@ -1,8 +1,8 @@
 setting_module.controller('SettingController',
-                          ['$scope', '$location', 'toastr',
-                           'AppService', 'AppUtil', 'PermissionService',
-                           'OrganizationService',
-                           SettingController]);
+    ['$scope', '$location', 'toastr',
+        'AppService', 'AppUtil', 'PermissionService',
+        'OrganizationService',
+        SettingController]);
 
 function SettingController($scope, $location, toastr,
                            AppService, AppUtil, PermissionService,
@@ -49,10 +49,10 @@ function SettingController($scope, $location, toastr,
                 organizations.push(org);
             });
             $orgWidget.select2({
-                                   placeholder: '请选择部门',
-                                   width: '100%',
-                                   data: organizations
-                               });
+                placeholder: '请选择部门',
+                width: '100%',
+                data: organizations
+            });
         }, function (result) {
             toastr.error(AppUtil.errorMsg(result), "load organizations error");
         });
@@ -92,7 +92,7 @@ function SettingController($scope, $location, toastr,
 
         var $ownerSelector = $('.ownerSelector');
         var defaultSelectedDOM = '<option value="' + app.ownerName + '" selected="selected">' + app.ownerName
-                                 + '</option>';
+            + '</option>';
         $ownerSelector.append(defaultSelectedDOM);
         $ownerSelector.trigger('change');
     }
@@ -106,7 +106,7 @@ function SettingController($scope, $location, toastr,
         var toAssignMasterRoleUser = user.id;
         $scope.submitBtnDisabled = true;
         PermissionService.assign_master_role($scope.pageContext.appId,
-                                             toAssignMasterRoleUser)
+            toAssignMasterRoleUser)
             .then(function (result) {
                 $scope.submitBtnDisabled = false;
                 toastr.success("添加成功");

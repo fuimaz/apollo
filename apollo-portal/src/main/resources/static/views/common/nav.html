@@ -1,18 +1,18 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-            <img class="navbar-brand side-bar-switch cursor-pointer" src="../../img/show_sidebar.png"
-                 onMouseOver="this.style.background='#f1f2f7'"
-                 onMouseOut="this.style.background='#fff'"
-                 data-tooltip="tooltip" data-placement="bottom" title="显示导航栏"
-                 ng-show="viewMode == 2 && !showSideBar"
-                 ng-click="showSideBar = !showSideBar">
-            <img class="navbar-brand side-bar-switch cursor-pointer" src="../../img/hide_sidebar.png"
-                 onMouseOver="this.style.background='#f1f2f7'"
-                 onMouseOut="this.style.background='#fff'"
-                 data-tooltip="tooltip" data-placement="bottom" title="隐藏导航栏"
-                 ng-show="viewMode == 2 && showSideBar"
-                 ng-click="showSideBar = !showSideBar">
+            <img class="navbar-brand side-bar-switch cursor-pointer" data-placement="bottom"
+                 data-tooltip="tooltip"
+                 ng-click="showSideBar = !showSideBar"
+                 ng-show="viewMode == 2 && !showSideBar" onMouseOut="this.style.background='#fff'" onMouseOver="this.style.background='#f1f2f7'"
+                 src="../../img/show_sidebar.png"
+                 title="显示导航栏">
+            <img class="navbar-brand side-bar-switch cursor-pointer" data-placement="bottom"
+                 data-tooltip="tooltip"
+                 ng-click="showSideBar = !showSideBar"
+                 ng-show="viewMode == 2 && showSideBar" onMouseOut="this.style.background='#fff'" onMouseOver="this.style.background='#f1f2f7'"
+                 src="../../img/hide_sidebar.png"
+                 title="隐藏导航栏">
             <a class="navbar-brand logo" href="/">
                 <img src="../../img/logo-simple.png" style="height:45px; margin-top: -13px">
             </a>
@@ -26,7 +26,8 @@
                     </a>
                 </li>
                 <li class="dropdown" ng-if="hasRootPermission">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown" href="#"
+                       role="button">
                         <span class="glyphicon glyphicon-cog"></span>&nbsp;管理员工具
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -38,7 +39,8 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown" href="#"
+                       role="button">
                         <span class="glyphicon glyphicon-user"></span>&nbsp;{{userName}}
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">

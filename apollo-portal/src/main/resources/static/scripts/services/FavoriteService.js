@@ -22,11 +22,11 @@ appService.service('FavoriteService', ['$resource', '$q', function ($resource, $
         findFavorites: function (userId, appId, page, size) {
             var d = $q.defer();
             resource.find_favorites({
-                                        userId: userId,
-                                        appId: appId,
-                                        page: page,
-                                        size: size
-                                    }, function (result) {
+                userId: userId,
+                appId: appId,
+                page: page,
+                size: size
+            }, function (result) {
                 d.resolve(result);
             }, function (result) {
                 d.reject(result);
@@ -45,8 +45,8 @@ appService.service('FavoriteService', ['$resource', '$q', function ($resource, $
         deleteFavorite: function (favoriteId) {
             var d = $q.defer();
             resource.delete_favorite({
-                                          favoriteId: favoriteId
-                                      }, function (result) {
+                favoriteId: favoriteId
+            }, function (result) {
                 d.resolve(result);
             }, function (result) {
                 d.reject(result);
@@ -56,8 +56,8 @@ appService.service('FavoriteService', ['$resource', '$q', function ($resource, $
         toTop: function (favoriteId) {
             var d = $q.defer();
             resource.to_top({
-                                favoriteId: favoriteId
-                            }, {}, function (result) {
+                favoriteId: favoriteId
+            }, {}, function (result) {
                 d.resolve(result);
             }, function (result) {
                 d.reject(result);

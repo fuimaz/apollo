@@ -1,7 +1,7 @@
 application_module.controller("ConfigNamespaceController",
-                              ['$rootScope', '$scope', 'toastr', 'AppUtil', 'EventManager', 'ConfigService',
-                               'PermissionService', 'UserService', 'NamespaceBranchService', 'NamespaceService',
-                               controller]);
+    ['$rootScope', '$scope', 'toastr', 'AppUtil', 'EventManager', 'ConfigService',
+        'PermissionService', 'UserService', 'NamespaceBranchService', 'NamespaceService',
+        controller]);
 
 function controller($rootScope, $scope, toastr, AppUtil, EventManager, ConfigService,
                     PermissionService, UserService, NamespaceBranchService, NamespaceService) {
@@ -87,14 +87,14 @@ function controller($rootScope, $scope, toastr, AppUtil, EventManager, ConfigSer
     }
 
     EventManager.subscribe(EventManager.EventType.REFRESH_NAMESPACE,
-                           function (context) {
-                               if (context.namespace) {
-                                   refreshSingleNamespace(context.namespace);
-                               } else {
-                                   refreshAllNamespaces();
-                               }
+        function (context) {
+            if (context.namespace) {
+                refreshSingleNamespace(context.namespace);
+            } else {
+                refreshAllNamespaces();
+            }
 
-                           });
+        });
 
     function refreshAllNamespaces() {
         if ($rootScope.pageContext.env == '') {
@@ -102,8 +102,8 @@ function controller($rootScope, $scope, toastr, AppUtil, EventManager, ConfigSer
         }
 
         ConfigService.load_all_namespaces($rootScope.pageContext.appId,
-                                          $rootScope.pageContext.env,
-                                          $rootScope.pageContext.clusterName).then(
+            $rootScope.pageContext.env,
+            $rootScope.pageContext.clusterName).then(
             function (result) {
 
                 $scope.namespaces = result;
@@ -121,9 +121,9 @@ function controller($rootScope, $scope, toastr, AppUtil, EventManager, ConfigSer
         }
 
         ConfigService.load_namespace($rootScope.pageContext.appId,
-                                     $rootScope.pageContext.env,
-                                     $rootScope.pageContext.clusterName,
-                                     namespace.baseInfo.namespaceName).then(
+            $rootScope.pageContext.env,
+            $rootScope.pageContext.clusterName,
+            namespace.baseInfo.namespaceName).then(
             function (result) {
 
                 $scope.namespaces.forEach(function (namespace, index) {
@@ -165,16 +165,16 @@ function controller($rootScope, $scope, toastr, AppUtil, EventManager, ConfigSer
 
     function deleteItem() {
         ConfigService.delete_item($rootScope.pageContext.appId,
-                                  $rootScope.pageContext.env,
-                                  $rootScope.pageContext.clusterName,
-                                  $scope.toOperationNamespace.baseInfo.namespaceName,
-                                  toDeleteItemId).then(
+            $rootScope.pageContext.env,
+            $rootScope.pageContext.clusterName,
+            $scope.toOperationNamespace.baseInfo.namespaceName,
+            toDeleteItemId).then(
             function (result) {
                 toastr.success("删除成功!");
                 EventManager.emit(EventManager.EventType.REFRESH_NAMESPACE,
-                                  {
-                                      namespace: $scope.toOperationNamespace
-                                  });
+                    {
+                        namespace: $scope.toOperationNamespace
+                    });
             }, function (result) {
                 toastr.error(AppUtil.errorMsg(result), "删除失败");
             });
@@ -276,15 +276,15 @@ function controller($rootScope, $scope, toastr, AppUtil, EventManager, ConfigSer
 
     function createBranch() {
         NamespaceBranchService.createBranch($rootScope.pageContext.appId,
-                                            $rootScope.pageContext.env,
-                                            $rootScope.pageContext.clusterName,
-                                            toCreateBranchNamespace.baseInfo.namespaceName)
+            $rootScope.pageContext.env,
+            $rootScope.pageContext.clusterName,
+            toCreateBranchNamespace.baseInfo.namespaceName)
             .then(function (result) {
                 toastr.success("创建灰度成功");
                 EventManager.emit(EventManager.EventType.REFRESH_NAMESPACE,
-                                  {
-                                      namespace: toCreateBranchNamespace
-                                  });
+                    {
+                        namespace: toCreateBranchNamespace
+                    });
             }, function (result) {
                 toastr.error(AppUtil.errorMsg(result), "创建灰度失败");
             })
@@ -300,17 +300,17 @@ function controller($rootScope, $scope, toastr, AppUtil, EventManager, ConfigSer
 
     function deleteBranch() {
         NamespaceBranchService.deleteBranch($rootScope.pageContext.appId,
-                                            $rootScope.pageContext.env,
-                                            $rootScope.pageContext.clusterName,
-                                            $scope.toDeleteBranch.baseInfo.namespaceName,
-                                            $scope.toDeleteBranch.baseInfo.clusterName
-            )
+            $rootScope.pageContext.env,
+            $rootScope.pageContext.clusterName,
+            $scope.toDeleteBranch.baseInfo.namespaceName,
+            $scope.toDeleteBranch.baseInfo.clusterName
+        )
             .then(function (result) {
                 toastr.success("删除成功");
                 EventManager.emit(EventManager.EventType.REFRESH_NAMESPACE,
-                                  {
-                                      namespace: $scope.toDeleteBranch.parentNamespace
-                                  });
+                    {
+                        namespace: $scope.toDeleteBranch.parentNamespace
+                    });
             }, function (result) {
                 toastr.error(AppUtil.errorMsg(result), "删除分支失败");
             })
@@ -318,25 +318,25 @@ function controller($rootScope, $scope, toastr, AppUtil, EventManager, ConfigSer
     }
 
     EventManager.subscribe(EventManager.EventType.EMERGENCY_PUBLISH,
-                           function (context) {
-                               AppUtil.showModal("#emergencyPublishAlertDialog");
-                               $scope.emergencyPublishContext = context;
-                           });
+        function (context) {
+            AppUtil.showModal("#emergencyPublishAlertDialog");
+            $scope.emergencyPublishContext = context;
+        });
 
     function emergencyPublish() {
         if ($scope.emergencyPublishContext.mergeAndPublish) {
 
             EventManager.emit(EventManager.EventType.MERGE_AND_PUBLISH_NAMESPACE,
-                              {
-                                  branch: $scope.emergencyPublishContext.namespace,
-                                  isEmergencyPublish: true
-                              });
+                {
+                    branch: $scope.emergencyPublishContext.namespace,
+                    isEmergencyPublish: true
+                });
         } else {
             EventManager.emit(EventManager.EventType.PUBLISH_NAMESPACE,
-                              {
-                                  namespace: $scope.emergencyPublishContext.namespace,
-                                  isEmergencyPublish: true
-                              });
+                {
+                    namespace: $scope.emergencyPublishContext.namespace,
+                    isEmergencyPublish: true
+                });
         }
 
     }
@@ -355,10 +355,10 @@ function controller($rootScope, $scope, toastr, AppUtil, EventManager, ConfigSer
                 var appId = namespace.appId;
                 var clusterName = namespace.clusterName;
                 var url = '/config.html?#/appid=' + appId + '&env=' + $scope.pageContext.env + '&cluster='
-                          + clusterName;
+                    + clusterName;
 
                 namespaceTips.push("<a target='_blank' href=\'" + url + "\'>AppId = " + appId + ", 集群 = " + clusterName
-                                   + ", Namespace = " + namespace.namespaceName + "</a>");
+                    + ", Namespace = " + namespace.namespaceName + "</a>");
             });
 
             $scope.deleteNamespaceContext.detailReason =

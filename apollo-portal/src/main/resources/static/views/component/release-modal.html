@@ -1,9 +1,9 @@
-<form id="releaseModal" class="modal fade form-horizontal" name="releaseForm" valdr-type="Release"
-      ng-submit="release()">
+<form class="modal fade form-horizontal" id="releaseModal" name="releaseForm" ng-submit="release()"
+      valdr-type="Release">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header panel-primary">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
                         aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" ng-show="!toReleaseNamespace.isBranch">发布
                     <small>(只有发布过的配置才会被客户端获取到，此次发布只会作用于当前环境:{{env}})</small>
@@ -24,14 +24,14 @@
                 <div class="form-group">
                     <div class="col-sm-2 control-label" ng-if="!toReleaseNamespace.isPropertiesFormat">
                         <div class="row">
-                            <div class="btn-group btn-group-xs" style="padding-right: 10px" role="group">
-                                <button type="button" class="btn btn-default"
-                                        ng-class="{active:releaseChangeViewType=='change'}"
-                                        ng-click="switchReleaseChangeViewType('change')">查看变更
+                            <div class="btn-group btn-group-xs" role="group" style="padding-right: 10px">
+                                <button class="btn btn-default" ng-class="{active:releaseChangeViewType=='change'}"
+                                        ng-click="switchReleaseChangeViewType('change')"
+                                        type="button">查看变更
                                 </button>
-                                <button type="button" class="btn btn-default"
-                                        ng-class="{active:releaseChangeViewType=='release'}"
-                                        ng-click="switchReleaseChangeViewType('release')">发布的值
+                                <button class="btn btn-default" ng-class="{active:releaseChangeViewType=='release'}"
+                                        ng-click="switchReleaseChangeViewType('release')"
+                                        type="button">发布的值
                                 </button>
                             </div>
                         </div>
@@ -68,28 +68,28 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="config in toReleaseNamespace.items"
-                                ng-if="config.item.key && config.isModified">
-                                <td width="20%" title="{{config.item.key}}">
+                            <tr ng-if="config.item.key && config.isModified"
+                                ng-repeat="config in toReleaseNamespace.items">
+                                <td title="{{config.item.key}}" width="20%">
                                     <span ng-bind="config.item.key"></span>
-                                     <span class="label label-success" ng-if="config.isModified && !config.oldValue"
-                                           data-tooltip="tooltip" data-placement="bottom" title="新增的配置">新</span>
+                                    <span class="label label-success" data-placement="bottom"
+                                          data-tooltip="tooltip" ng-if="config.isModified && !config.oldValue" title="新增的配置">新</span>
                                     <span class="label label-info"
-                                          ng-if="config.isModified && config.oldValue && !config.isDeleted"
-                                          data-tooltip="tooltip" data-placement="bottom" title="修改的配置">改</span>
-                                    <span class="label label-danger" ng-if="config.isDeleted"
-                                          data-tooltip="tooltip" data-placement="bottom" title="删除的配置">删</span>
+                                          data-placement="bottom"
+                                          data-tooltip="tooltip" ng-if="config.isModified && config.oldValue && !config.isDeleted" title="修改的配置">改</span>
+                                    <span class="label label-danger" data-placement="bottom"
+                                          data-tooltip="tooltip" ng-if="config.isDeleted" title="删除的配置">删</span>
                                 </td>
-                                <td width="25%" title="{{config.oldValue}}">
+                                <td title="{{config.oldValue}}" width="25%">
                                     <span ng-bind="config.oldValue"></span>
                                 </td>
-                                <td width="25%" title="{{config.newValue}}">
+                                <td title="{{config.newValue}}" width="25%">
                                     <span ng-bind="config.newValue"></span>
                                 </td>
-                                <td width="15%" ng-bind="config.item.dataChangeLastModifiedBy">
+                                <td ng-bind="config.item.dataChangeLastModifiedBy" width="15%">
                                 </td>
-                                <td width="15%"
-                                    ng-bind="config.item.dataChangeLastModifiedTime | date: 'yyyy-MM-dd HH:mm:ss'">
+                                <td ng-bind="config.item.dataChangeLastModifiedTime | date: 'yyyy-MM-dd HH:mm:ss'"
+                                    width="15%">
                                 </td>
                             </tr>
                             </tbody>
@@ -122,26 +122,26 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="config in toReleaseNamespace.branchItems"
-                                ng-if="config.isModified || config.isDeleted">
-                                <td width="15%" title="{{config.item.key}}">
+                            <tr ng-if="config.isModified || config.isDeleted"
+                                ng-repeat="config in toReleaseNamespace.branchItems">
+                                <td title="{{config.item.key}}" width="15%">
                                     <span ng-bind="config.item.key"></span>
-                                        <span class="label label-danger"
-                                              ng-show="config.isDeleted">删</span>
+                                    <span class="label label-danger"
+                                          ng-show="config.isDeleted">删</span>
                                 </td>
-                                <td width="20%" title="{{config.masterReleaseValue}}">
+                                <td title="{{config.masterReleaseValue}}" width="20%">
                                     <span ng-bind="config.masterReleaseValue"></span>
                                 </td>
-                                <td width="20%" title="{{config.oldValue}}">
+                                <td title="{{config.oldValue}}" width="20%">
                                     <span ng-bind="config.oldValue"></span>
                                 </td>
-                                <td width="20%" title="{{config.newValue}}">
+                                <td title="{{config.newValue}}" width="20%">
                                     <span ng-bind="config.newValue"></span>
                                 </td>
-                                <td width="10%" ng-bind="config.item.dataChangeLastModifiedBy">
+                                <td ng-bind="config.item.dataChangeLastModifiedBy" width="10%">
                                 </td>
-                                <td width="15%"
-                                    ng-bind="config.item.dataChangeLastModifiedTime | date: 'yyyy-MM-dd HH:mm:ss'">
+                                <td ng-bind="config.item.dataChangeLastModifiedTime | date: 'yyyy-MM-dd HH:mm:ss'"
+                                    width="15%">
                                 </td>
                             </tr>
                             </tbody>
@@ -177,38 +177,38 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="config in toReleaseNamespace.branchItems"
-                                ng-if="!config.isDeleted">
-                                <td width="20%" title="{{config.item.key}}">
+                            <tr ng-if="!config.isDeleted"
+                                ng-repeat="config in toReleaseNamespace.branchItems">
+                                <td title="{{config.item.key}}" width="20%">
                                     <span ng-bind="config.item.key"></span>
                                 </td>
-                                <td width="25%" title="{{config.masterReleaseValue}}">
+                                <td title="{{config.masterReleaseValue}}" width="25%">
                                     <span ng-bind="config.masterReleaseValue"></span>
                                 </td>
-                                <td width="25%" title="{{config.item.value}}">
+                                <td title="{{config.item.value}}" width="25%">
                                     <span ng-bind="config.item.value"></span>
                                 </td>
-                                <td width="15%" ng-bind="config.item.dataChangeLastModifiedBy">
+                                <td ng-bind="config.item.dataChangeLastModifiedBy" width="15%">
                                 </td>
-                                <td width="15%"
-                                    ng-bind="config.item.dataChangeLastModifiedTime | date: 'yyyy-MM-dd HH:mm:ss'">
+                                <td ng-bind="config.item.dataChangeLastModifiedTime | date: 'yyyy-MM-dd HH:mm:ss'"
+                                    width="15%">
                                 </td>
                             </tr>
                             </tbody>
                         </table>
 
                         <!--file format -->
-                        <div ng-repeat="item in toReleaseNamespace.items"
-                             ng-if="!toReleaseNamespace.isPropertiesFormat"
+                        <div ng-if="!toReleaseNamespace.isPropertiesFormat"
+                             ng-repeat="item in toReleaseNamespace.items"
                              ng-show="releaseChangeViewType=='change'">
-                            <apollodiff old-str="item.oldValue" new-str="item.newValue"
-                                        apollo-id="'releaseStrDiff'"></apollodiff>
+                            <apollodiff apollo-id="'releaseStrDiff'" new-str="item.newValue"
+                                        old-str="item.oldValue"></apollodiff>
                         </div>
-                        <div ng-repeat="item in toReleaseNamespace.items"
-                             ng-if="!toReleaseNamespace.isPropertiesFormat"
+                        <div ng-if="!toReleaseNamespace.isPropertiesFormat"
+                             ng-repeat="item in toReleaseNamespace.items"
                              ng-show="releaseChangeViewType=='release'">
-                                        <textarea class="form-control no-radius" rows="20"
-                                                  ng-disabled="true" ng-show="item.newValue" ng-bind="item.newValue">
+                                        <textarea class="form-control no-radius" ng-bind="item.newValue"
+                                                  ng-disabled="true" ng-show="item.newValue" rows="20">
                                         </textarea>
                         </div>
 
@@ -241,18 +241,18 @@
                         <apollorequiredfield></apollorequiredfield>
                         Release Name</label>
                     <div class="col-sm-5" valdr-form-group>
-                        <input type="text" name="releaseName" class="form-control"
-                               placeholder="input release name"
-                               ng-model="toReleaseNamespace.releaseTitle" ng-required="true">
+                        <input class="form-control" name="releaseName" ng-model="toReleaseNamespace.releaseTitle"
+                               ng-required="true"
+                               placeholder="input release name" type="text">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Comment</label>
                     <div class="col-sm-10" valdr-form-group>
-                                            <textarea rows="4" name="comment" class="form-control"
-                                                      style="margin-top: 15px;"
-                                                      ng-model="releaseComment"
-                                                      placeholder="Add an optional extended description..."></textarea>
+                                            <textarea class="form-control" name="comment" ng-model="releaseComment"
+                                                      placeholder="Add an optional extended description..."
+                                                      rows="4"
+                                                      style="margin-top: 15px;"></textarea>
                     </div>
                 </div>
 
@@ -260,10 +260,10 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="submit" class="btn btn-primary"
-                        ng-disabled="releaseForm.$invalid || releaseBtnDisabled
-                        || (toReleaseNamespace.isBranch && toReleaseNamespace.mergeAndPublish && toReleaseNamespace.branchItems.length == 0)">
+                <button class="btn btn-default" data-dismiss="modal" type="button">取消</button>
+                <button class="btn btn-primary" ng-disabled="releaseForm.$invalid || releaseBtnDisabled
+                        || (toReleaseNamespace.isBranch && toReleaseNamespace.mergeAndPublish && toReleaseNamespace.branchItems.length == 0)"
+                        type="submit">
                     发布
                 </button>
             </div>

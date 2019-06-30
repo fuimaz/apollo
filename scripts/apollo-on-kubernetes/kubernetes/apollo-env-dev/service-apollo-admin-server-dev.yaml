@@ -1,4 +1,3 @@
-
 ---
 # configmap for apollo-admin-server-dev
 kind: ConfigMap
@@ -56,7 +55,7 @@ spec:
     spec:
       nodeSelector:
         node: "apollo"
-      
+
       volumes:
         - name: volume-configmap-apollo-admin-server-dev
           configMap:
@@ -64,12 +63,12 @@ spec:
             items:
               - key: application-github.properties
                 path: application-github.properties
-      
+
       initContainers:
         - image: alpine-bash:3.8
           name: check-service-apollo-config-server-dev
           command: ['bash', '-c', "curl --connect-timeout 2 --max-time 5 --retry 60 --retry-delay 1 --retry-max-time 120 service-apollo-config-server-dev.sre:8080"]
-      
+
       containers:
         - image: apollo-admin-server:v1.0.0
           securityContext:
@@ -79,27 +78,27 @@ spec:
           ports:
             - protocol: TCP
               containerPort: 8090
-          
+
           volumeMounts:
             - name: volume-configmap-apollo-admin-server-dev
               mountPath: /apollo-admin-server/config/application-github.properties
               subPath: application-github.properties
-          
+
           env:
             - name: APOLLO_ADMIN_SERVICE_NAME
               value: "service-apollo-admin-server-dev.sre"
-          
+
           readinessProbe:
             tcpSocket:
               port: 8090
             initialDelaySeconds: 10
             periodSeconds: 5
-          
+
           livenessProbe:
             tcpSocket:
               port: 8090
             initialDelaySeconds: 120
             periodSeconds: 10
-          
+
       dnsPolicy: ClusterFirst
       restartPolicy: Always

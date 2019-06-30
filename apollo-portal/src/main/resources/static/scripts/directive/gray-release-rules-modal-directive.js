@@ -23,24 +23,24 @@ function rulesModalDirective(toastr, AppUtil, EventManager, InstanceService) {
             scope.initSelectIps = initSelectIps;
 
             EventManager.subscribe(EventManager.EventType.EDIT_GRAY_RELEASE_RULES,
-                                   function (context) {
-                                       var branch = context.branch;
-                                       scope.branch = branch;
+                function (context) {
+                    var branch = context.branch;
+                    scope.branch = branch;
 
-                                       if (branch.editingRuleItem.clientIpList && branch.editingRuleItem.clientIpList[0] == '*'){
-                                           branch.editingRuleItem.ApplyToAllInstances = true;
-                                       }else {
-                                           branch.editingRuleItem.ApplyToAllInstances = false;
-                                       }
+                    if (branch.editingRuleItem.clientIpList && branch.editingRuleItem.clientIpList[0] == '*') {
+                        branch.editingRuleItem.ApplyToAllInstances = true;
+                    } else {
+                        branch.editingRuleItem.ApplyToAllInstances = false;
+                    }
 
 
-                                       $('.rules-ip-selector').select2({
-                                                                           placeholder: "从实例列表中选择",
-                                                                           allowClear: true
-                                                                       });
+                    $('.rules-ip-selector').select2({
+                        placeholder: "从实例列表中选择",
+                        allowClear: true
+                    });
 
-                                       AppUtil.showModal('#rulesModal');
-                                   });
+                    AppUtil.showModal('#rulesModal');
+                });
 
             $('.rules-ip-selector').on('select2:select', function () {
                 addRules(scope.branch);
@@ -156,9 +156,9 @@ function rulesModalDirective(toastr, AppUtil, EventManager, InstanceService) {
                 AppUtil.hideModal('#rulesModal');
 
                 EventManager.emit(EventManager.EventType.UPDATE_GRAY_RELEASE_RULES,
-                                  {
-                                      branch: branch
-                                  }, branch.baseInfo.namespaceName);
+                    {
+                        branch: branch
+                    }, branch.baseInfo.namespaceName);
                 scope.completeEditBtnDisable = false;
             }
 
@@ -185,12 +185,12 @@ function rulesModalDirective(toastr, AppUtil, EventManager, InstanceService) {
                     return;
                 }
                 InstanceService.findInstancesByNamespace(scope.appId,
-                                                         scope.env,
-                                                         scope.cluster,
-                                                         scope.branch.baseInfo.namespaceName,
-                                                         scope.branch.editingRuleItem.clientAppId,
-                                                         0,
-                                                         2000)
+                    scope.env,
+                    scope.cluster,
+                    scope.branch.baseInfo.namespaceName,
+                    scope.branch.editingRuleItem.clientAppId,
+                    0,
+                    2000)
                     .then(function (result) {
                         scope.selectIps = result.content;
                     });

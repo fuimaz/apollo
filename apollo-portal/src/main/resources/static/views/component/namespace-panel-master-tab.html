@@ -9,9 +9,9 @@
 
             <div class="col-md-6 col-sm-6 text-right header-buttons">
 
-                <button type="button" class="btn btn-default btn-sm"
-                        data-tooltip="tooltip" data-placement="bottom" title="加载Namespace"
-                        ng-click="refreshNamespace()">
+                <button class="btn btn-default btn-sm" data-placement="bottom"
+                        data-tooltip="tooltip" ng-click="refreshNamespace()" title="加载Namespace"
+                        type="button">
                     <img src="img/more.png">
                     加载Namespace
                 </button>
@@ -101,7 +101,6 @@
             </div>
         </div>
     </header>
-
 
 
     <div id="BODY{{namespace.id}}" ng-class="{'collapse in': showNamespaceBody, 'collapse' : !showNamespaceBody}">

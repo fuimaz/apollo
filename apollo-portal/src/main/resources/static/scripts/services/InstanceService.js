@@ -28,14 +28,14 @@ appService.service('InstanceService', ['$resource', '$q', function ($resource, $
             }
             var d = $q.defer();
             resource.find_instances_by_release({
-                                                   env: env,
-                                                   releaseId: releaseId,
-                                                   page: page,
-                                                   size: size
-                                               },
-                                               function (result) {
-                                                   d.resolve(result);
-                                               }, function (result) {
+                    env: env,
+                    releaseId: releaseId,
+                    page: page,
+                    size: size
+                },
+                function (result) {
+                    d.resolve(result);
+                }, function (result) {
                     d.reject(result);
                 });
             return d.promise;
@@ -48,21 +48,21 @@ appService.service('InstanceService', ['$resource', '$q', function ($resource, $
             var instanceAppIdRequest = instanceAppId;
             instanceService.lastInstanceAppIdRequest = instanceAppIdRequest;
             resource.find_instances_by_namespace({
-                                                     env: env,
-                                                     appId: appId,
-                                                     clusterName: clusterName,
-                                                     namespaceName: namespaceName,
-                                                     instanceAppId: instanceAppId,
-                                                     page: page,
-                                                     size: size
-                                                 },
-                                                 function (result) {
-                                                     if (instanceAppIdRequest
-                                                         != instanceService.lastInstanceAppIdRequest) {
-                                                         return;
-                                                     }
-                                                     d.resolve(result);
-                                                 }, function (result) {
+                    env: env,
+                    appId: appId,
+                    clusterName: clusterName,
+                    namespaceName: namespaceName,
+                    instanceAppId: instanceAppId,
+                    page: page,
+                    size: size
+                },
+                function (result) {
+                    if (instanceAppIdRequest
+                        != instanceService.lastInstanceAppIdRequest) {
+                        return;
+                    }
+                    d.resolve(result);
+                }, function (result) {
                     if (instanceAppIdRequest != instanceService.lastInstanceAppIdRequest) {
                         return;
                     }
@@ -73,15 +73,15 @@ appService.service('InstanceService', ['$resource', '$q', function ($resource, $
         findByReleasesNotIn: function (appId, env, clusterName, namespaceName, releaseIds) {
             var d = $q.defer();
             resource.find_by_releases_not_in({
-                                                 env: env,
-                                                 appId: appId,
-                                                 clusterName: clusterName,
-                                                 namespaceName: namespaceName,
-                                                 releaseIds: releaseIds
-                                             },
-                                             function (result) {
-                                                 d.resolve(result);
-                                             }, function (result) {
+                    env: env,
+                    appId: appId,
+                    clusterName: clusterName,
+                    namespaceName: namespaceName,
+                    releaseIds: releaseIds
+                },
+                function (result) {
+                    d.resolve(result);
+                }, function (result) {
                     d.reject(result);
                 });
             return d.promise;
@@ -89,14 +89,14 @@ appService.service('InstanceService', ['$resource', '$q', function ($resource, $
         getInstanceCountByNamespace: function (appId, env, clusterName, namespaceName) {
             var d = $q.defer();
             resource.get_instance_count_by_namespace({
-                                                         env: env,
-                                                         appId: appId,
-                                                         clusterName: clusterName,
-                                                         namespaceName: namespaceName
-                                                     },
-                                                     function (result) {
-                                                         d.resolve(result);
-                                                     }, function (result) {
+                    env: env,
+                    appId: appId,
+                    clusterName: clusterName,
+                    namespaceName: namespaceName
+                },
+                function (result) {
+                    d.resolve(result);
+                }, function (result) {
                     d.reject(result);
                 });
             return d.promise;
