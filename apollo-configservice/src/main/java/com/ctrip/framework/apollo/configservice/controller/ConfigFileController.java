@@ -152,6 +152,7 @@ public class ConfigFileController implements ReleaseMessageListener {
             clientIp = tryToGetClientIp(request);
         }
 
+        // 先检查是否有灰度版本，如果有直接返回灰度版本，否则回去全量发布版本返回
         //1. check whether this client has gray release rules
         boolean hasGrayReleaseRule = grayReleaseRulesHolder.hasGrayReleaseRule(appId, clientIp,
                 namespace);
@@ -177,6 +178,7 @@ public class ConfigFileController implements ReleaseMessageListener {
             if (result == null) {
                 return null;
             }
+            // 再检查一遍灰度版本
             //5. Double check if this client needs to load gray release, if yes, load from db again
             //This step is mainly to avoid cache pollution
             if (grayReleaseRulesHolder.hasGrayReleaseRule(appId, clientIp, namespace)) {

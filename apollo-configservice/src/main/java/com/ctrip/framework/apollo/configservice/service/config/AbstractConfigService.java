@@ -56,6 +56,7 @@ public abstract class AbstractConfigService implements ConfigService {
      */
     private Release findRelease(String clientAppId, String clientIp, String configAppId, String configClusterName,
                                 String configNamespace, ApolloNotificationMessages clientMessages) {
+        // 先找是否有灰度版本
         Long grayReleaseId = grayReleaseRulesHolder.findReleaseIdFromGrayReleaseRule(clientAppId, clientIp, configAppId,
                 configClusterName, configNamespace);
 

@@ -28,6 +28,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
+ * 客户端获取配置是通过这个接口
  * @author Jason Song(song_s@ctrip.com)
  */
 @RestController
@@ -80,6 +81,7 @@ public class ConfigController {
 
         String appClusterNameLoaded = clusterName;
         if (!ConfigConsts.NO_APPID_PLACEHOLDER.equalsIgnoreCase(appId)) {
+            // 加载配置
             Release currentAppRelease = configService.loadConfig(appId, clientIp, appId, clusterName, namespace,
                     dataCenter, clientMessages);
 

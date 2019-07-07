@@ -70,6 +70,7 @@ public class ConfigServiceAutoConfiguration {
 
         @Bean
         public ReleaseMessageScanner releaseMessageScanner() {
+            // 注册发布事件扫描的bean
             ReleaseMessageScanner releaseMessageScanner = new ReleaseMessageScanner();
             //0. handle release message cache
             releaseMessageScanner.addMessageListener(releaseMessageServiceWithCache);

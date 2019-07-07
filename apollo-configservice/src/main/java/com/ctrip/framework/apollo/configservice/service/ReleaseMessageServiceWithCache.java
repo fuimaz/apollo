@@ -108,6 +108,7 @@ public class ReleaseMessageServiceWithCache implements ReleaseMessageListener, I
         }
 
         long gap = message.getId() - maxIdScanned;
+        // 最新id和上次id只差一，则merge，否则直接重新加载
         if (gap == 1) {
             mergeReleaseMessage(message);
         } else if (gap > 1) {
@@ -148,6 +149,7 @@ public class ReleaseMessageServiceWithCache implements ReleaseMessageListener, I
     private synchronized void mergeReleaseMessage(ReleaseMessage releaseMessage) {
         ReleaseMessage old = releaseMessageCache.get(releaseMessage.getMessage());
         if (old == null || releaseMessage.getId() > old.getId()) {
+            // message的格式很简单，message = demo2+default+application
             releaseMessageCache.put(releaseMessage.getMessage(), releaseMessage);
             maxIdScanned = releaseMessage.getId();
         }

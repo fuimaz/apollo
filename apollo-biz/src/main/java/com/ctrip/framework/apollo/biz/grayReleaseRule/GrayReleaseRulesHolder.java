@@ -66,6 +66,7 @@ public class GrayReleaseRulesHolder implements ReleaseMessageListener, Initializ
         populateDataBaseInterval();
         //force sync load for the first time
         periodicScanRules();
+        // 定时更新灰度规则
         executorService.scheduleWithFixedDelay(this::periodicScanRules,
                 getDatabaseScanIntervalSecond(), getDatabaseScanIntervalSecond(), getDatabaseScanTimeUnit()
         );
@@ -75,6 +76,8 @@ public class GrayReleaseRulesHolder implements ReleaseMessageListener, Initializ
     public void handleMessage(ReleaseMessage message, String channel) {
         logger.info("message received - channel: {}, message: {}", channel, message);
         String releaseMessage = message.getMessage();
+
+        // 这里的topic也还是 release的，channel其实只有release
         if (!Topics.APOLLO_RELEASE_TOPIC.equals(channel) || Strings.isNullOrEmpty(releaseMessage)) {
             return;
         }
@@ -91,6 +94,7 @@ public class GrayReleaseRulesHolder implements ReleaseMessageListener, Initializ
         List<GrayReleaseRule> rules = grayReleaseRuleRepository
                 .findByAppIdAndClusterNameAndNamespaceName(appId, cluster, namespace);
 
+        // 更新本地缓存
         mergeGrayReleaseRules(rules);
     }
 
@@ -112,6 +116,7 @@ public class GrayReleaseRulesHolder implements ReleaseMessageListener, Initializ
     public Long findReleaseIdFromGrayReleaseRule(String clientAppId, String clientIp, String
             configAppId, String configCluster, String configNamespaceName) {
         String key = assembleGrayReleaseRuleKey(configAppId, configCluster, configNamespaceName);
+        // 从本地缓存里找匹配项
         if (!grayReleaseRuleCache.containsKey(key)) {
             return null;
         }

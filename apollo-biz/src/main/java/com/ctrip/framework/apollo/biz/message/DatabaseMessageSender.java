@@ -50,7 +50,9 @@ public class DatabaseMessageSender implements MessageSender {
         Tracer.logEvent("Apollo.AdminService.ReleaseMessage", message);
         Transaction transaction = Tracer.newTransaction("Apollo.AdminService", "sendMessage");
         try {
+            // message = demo2+default+application
             ReleaseMessage newMessage = releaseMessageRepository.save(new ReleaseMessage(message));
+            // 放到队列里删除上一条发布id
             toClean.offer(newMessage.getId());
             transaction.setStatus(Transaction.SUCCESS);
         } catch (Throwable ex) {

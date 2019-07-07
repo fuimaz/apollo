@@ -42,6 +42,7 @@ public class ReleaseMessageScanner implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         databaseScanInterval = bizConfig.releaseMessageScanIntervalInMilli();
         maxIdScanned = loadLargestMessageId();
+        // 定时到数据库里扫描发布事件
         executorService.scheduleWithFixedDelay((Runnable) () -> {
             Transaction transaction = Tracer.newTransaction("Apollo.ReleaseMessageScanner", "scanMessage");
             try {

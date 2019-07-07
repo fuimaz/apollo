@@ -243,6 +243,11 @@ public class NotificationControllerV2 implements ReleaseMessageListener {
         return newNotifications;
     }
 
+    /**
+     * controller也注册监听事件，当配置变更时，这里会想客户端发起变更通知
+     * @param message
+     * @param channel
+     */
     @Override
     public void handleMessage(ReleaseMessage message, String channel) {
         logger.info("message received - channel: {}, message: {}", channel, message);
@@ -271,6 +276,7 @@ public class NotificationControllerV2 implements ReleaseMessageListener {
         configNotification.addMessage(content, message.getId());
 
         //do async notification if too many clients
+        // 客户端数量多时异步通知，然后结束，否则单线程通知
         if (results.size() > bizConfig.releaseMessageNotificationBatch()) {
             largeNotificationBatchExecutorService.submit(() -> {
                 logger.debug("Async notify {} clients for key {} with batch {}", results.size(), content,
@@ -284,6 +290,7 @@ public class NotificationControllerV2 implements ReleaseMessageListener {
                         }
                     }
                     logger.debug("Async notify {}", results.get(i));
+                    // 这里就set一下result
                     results.get(i).setResult(configNotification);
                 }
             });

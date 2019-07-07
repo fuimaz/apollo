@@ -116,6 +116,8 @@ public class ReleaseController {
         } else {
             messageCluster = clusterName;
         }
+
+        // 通过数据库发送更新消息
         messageSender.sendMessage(ReleaseMessageKeyGenerator.generate(appId, messageCluster, namespaceName),
                 Topics.APOLLO_RELEASE_TOPIC);
         return BeanUtils.transform(ReleaseDTO.class, release);
