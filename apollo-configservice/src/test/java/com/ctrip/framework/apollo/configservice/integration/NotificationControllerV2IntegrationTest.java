@@ -46,7 +46,7 @@ public class NotificationControllerV2IntegrationTest extends AbstractBaseIntegra
     @Before
     public void setUp() throws Exception {
         ReflectionTestUtils.invokeMethod(releaseMessageServiceWithCache, "reset");
-        someAppId = "someAppId";
+        someAppId = "demo2";
         someCluster = ConfigConsts.CLUSTER_NAME_DEFAULT;
         defaultNamespace = ConfigConsts.NAMESPACE_APPLICATION;
         somePublicNamespace = "somePublicNamespace";

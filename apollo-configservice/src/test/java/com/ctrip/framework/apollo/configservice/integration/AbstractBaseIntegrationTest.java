@@ -51,7 +51,7 @@ public abstract class AbstractBaseIntegrationTest {
     }
 
     protected String getHostUrl() {
-        return "localhost:" + port;
+        return "localhost:" + 8080;
     }
 
     protected void sendReleaseMessage(String message) {

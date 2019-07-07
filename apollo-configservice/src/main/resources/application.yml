@@ -3,6 +3,10 @@ spring:
     name: apollo-configservice
   profiles:
     active: ${apollo_profile}
+  datasource:
+    url: jdbc:mysql://localhost:3306/ApolloConfigDB?useSSL=false&characterEncoding=utf8
+    username: root
+    password: fuimazv8p
 
 ctrip:
   appid: 100003171
@@ -11,4 +15,4 @@ server:
   port: 8080
 
 logging:
-  file: /opt/logs/100003171/apollo-configservice.log
+  file: logs/100003171/apollo-configservice.log

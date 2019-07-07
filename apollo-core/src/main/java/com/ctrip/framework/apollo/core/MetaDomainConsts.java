@@ -34,7 +34,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @see com.ctrip.framework.apollo.core.internals.LegacyMetaServerProvider
  */
 public class MetaDomainConsts {
-    public static final String DEFAULT_META_URL = "http://apollo.meta";
+//    public static final String DEFAULT_META_URL = "http://apollo.meta";
+    public static final String DEFAULT_META_URL = "http://localhost:8080";
 
     // env -> meta server address cache
     private static final Map<Env, String> metaServerAddressCache = Maps.newConcurrentMap();
